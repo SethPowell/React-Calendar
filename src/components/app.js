@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
 import Header from './header';
+import Content from "./content-wrapper";
 import Footer from './footer';
+
 import monthData from '../../static/assets/dummyData';
+
+
 //anything that will be global should be in app
 export default class App extends Component {
   constructor() {
@@ -36,6 +40,7 @@ export default class App extends Component {
     return (
       <div className='app'>
         <Header monthName={this.state.month.name} handleMonthChange={this.handleMonthChange}/>
+        <Content month={this.state.month} />
         <Footer year={this.state.month.year}/>
       </div>
     );
