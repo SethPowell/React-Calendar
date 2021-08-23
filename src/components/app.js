@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from './header';
 import Content from "./content-wrapper";
 import Footer from './footer';
+import CalendarBox from './calendar-box';
 
 import monthData from '../../static/assets/dummyData';
 

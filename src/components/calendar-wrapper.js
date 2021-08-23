@@ -1,4 +1,5 @@
 import React from "react";
+import CalendarBox from "./calendar-box";
 
 import DayOfWeek from "./day-of-week"
 
@@ -12,6 +13,7 @@ export default function calendarWrapper(props) {
             <DayOfWeek day="Thursday" />
             <DayOfWeek day="Friday" />
             <DayOfWeek day="Saturday" />
+            <CalendarBox />
         </div>
     )
 }
