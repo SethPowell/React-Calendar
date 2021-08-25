@@ -6,6 +6,14 @@ import DayOfWeek from "./day-of-week"
 export default function calendarWrapper(props) {
     const renderCalendarBoxes = () => {
         const calendarBoxesArray = []
+
+        for (let i=1; i<=props.month.start_day; i++) {
+            const date= (props.month.days_in_previous_month - props.month.start_day)+i
+            calendarBoxesArray.push(
+                <CalendarBox date={date} />
+            )
+        }
+
         for (let i=1; i<=props.month.days_in_month; i++) {
             calendarBoxesArray.push(
                 <CalendarBox date={i} />
