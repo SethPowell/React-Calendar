@@ -4,6 +4,8 @@ import Header from './header';
 import Content from "./content-wrapper";
 import Footer from './footer';
 
+import loading from "../../static/assets/loading.gif"
+
 //anything that will be global should be in app
 export default class App extends Component {
   constructor() {
@@ -13,7 +15,8 @@ export default class App extends Component {
     this.now= this.calculateDateData()
     this.state = {
       monthData: [],
-      month: {}
+      month: {},
+      loading: true
     }
 
     this.handleMonthChange = this.handleMonthChange.bind(this)
@@ -31,7 +34,8 @@ export default class App extends Component {
     .then(response => response.json())
     .then(data => this.setState({ 
       monthData: data,
-      month: data.filter(month => month.name === this.now.month && month.year === this.now.year)[0]
+      month: data.filter(month => month.name === this.now.month && month.year === this.now.year)[0],
+      loading: false
     }))
 
     .catch(error => console.log("Error getting monthData: ", error))
@@ -48,9 +52,13 @@ export default class App extends Component {
   render() {
     return (
       <div className='app'>
-        <Header monthName={this.state.month.name} handleMonthChange={this.handleMonthChange}/>
-        <Content month={this.state.month} />
-        <Footer year={this.state.month.year}/>
+        {this.state.loading 
+        ?
+        <img src={loading}></img>
+        :
+        [<Header monthName={this.state.month.name} handleMonthChange={this.handleMonthChange}/>,
+        <Content month={this.state.month} />,
+        <Footer year={this.state.month.year}/>]}
       </div>
     );
   }
