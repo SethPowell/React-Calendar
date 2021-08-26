@@ -12,6 +12,22 @@ export default class CalendarBox extends Component {
         this.handleReminderChange = this.handleReminderChange.bind(this)
     }
 
+    componentDidMount() {
+        if (!this.props.overflow) {
+            fetch(`http://127.0.0.1:5000/reminder/get/${this.props.month.id}/${this.props.date}`, {method: "GET"})
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+                    this.setState({
+                        reminderExists: true,
+                        textInput: data.text
+                    })
+                }
+            })
+            .catch(error => console.log("Error in reminder get request: ", error))
+        }
+    }
+
     handleReminderChange() {
         if (!this.state.reminderExists && this.state.textInput !== "") {
             // post request id, month, date
@@ -63,7 +79,7 @@ export default class CalendarBox extends Component {
         return (
             <div className="calendar-box">
                 <span>{this.props.date}</span>
-                <textarea onBlur={this.handleReminderChange} onChange={(event => this.setState({ textInput: event.target.value })).bind(this)}></textarea>
+                <textarea value={this.state.textInput} onBlur={this.handleReminderChange} onChange={(event => this.setState({ textInput: event.target.value })).bind(this)}></textarea>
             </div>
         )
     }
