@@ -1,0 +1,57 @@
+.content-wrapper {
+    width: 85vw;
+    height: 100vh;
+
+    .calendar-wrapper {
+        display: grid;
+        grid-template: 25px repeat(6, 1fr) / repeat(7, 1fr);
+        border: 1px solid darkred;
+        width: 85vw;
+        height: calc(((85vh /7) * 6) + 25px);
+    
+        .day-of-week {
+            border: 1px solid darkred;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 5px;
+        }
+        
+        .calendar-box {
+            border: 1px solid darkred;
+            display: grid;
+            grid-template: 25px 1fr / 25px 1fr;
+    
+            span {
+                border: 1px solid darkred;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+    
+            textarea {
+                grid-row: 2;
+                grid-column: 1 / -1;
+                border: 1px solid darkred;
+                resize: none;
+    
+                textarea:focus {
+                    outline: none;
+                }
+            }
+        }
+    
+        .overflow {
+            border: 1px solid lightgray;
+    
+            span {
+                border: 1px solid lightgray;
+                color: lightgray;
+            }
+    
+            textarea {
+                border: 1px solid lightgray;
+            }
+        }
+    }
+}
