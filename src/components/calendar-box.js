@@ -1,32 +1,34 @@
 import React, { Component } from "react";
 
 export default class CalendarBox extends Component {
-    constructor() {
+    constructor(props) {
         super();
 
+        const reminder = props.month ? props.month.reminders.filter(reminder => reminder.date === props.date)[0] : false
+
         this.state={
-            reminderExists: false,
-            textInput: ""
+            reminderExists: reminder ? true : false,
+            textInput: reminder ? reminder.text : ""
         }
 
         this.handleReminderChange = this.handleReminderChange.bind(this)
     }
 
-    componentDidMount() {
-        if (!this.props.overflow) {
-            fetch(`http://127.0.0.1:5000/reminder/get/${this.props.month.id}/${this.props.date}`, {method: "GET"})
-            .then(response => response.json())
-            .then(data => {
-                if (data.id) {
-                    this.setState({
-                        reminderExists: true,
-                        textInput: data.text
-                    })
-                }
-            })
-            .catch(error => console.log("Error in reminder get request: ", error))
-        }
-    }
+    // componentDidMount() {
+    //     if (!this.props.overflow) {
+    //         fetch(`http://127.0.0.1:5000/reminder/get/${this.props.month.id}/${this.props.date}`, {method: "GET"})
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.id) {
+    //                 this.setState({
+    //                     reminderExists: true,
+    //                     textInput: data.text
+    //                 })
+    //             }
+    //         })
+    //         .catch(error => console.log("Error in reminder get request: ", error))
+    //     }
+    // }
 
     handleReminderChange() {
         if (!this.state.reminderExists && this.state.textInput !== "") {
@@ -77,9 +79,14 @@ export default class CalendarBox extends Component {
 
     render() {
         return (
-            <div className="calendar-box">
+            <div className={`calendar-box ${this.props.overflow ? "overfolw" : null}`}>
                 <span>{this.props.date}</span>
-                <textarea value={this.state.textInput} onBlur={this.handleReminderChange} onChange={(event => this.setState({ textInput: event.target.value })).bind(this)}></textarea>
+                <textarea 
+                    value={this.state.textInput} 
+                    onBlur={this.handleReminderChange} 
+                    onChange={(event => this.setState({ textInput: event.target.value })).bind(this)}
+                    disabled={this.props.overflow}
+                ></textarea>
             </div>
         )
     }
