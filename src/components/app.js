@@ -56,9 +56,9 @@ export default class App extends Component {
         ?
         <img src={loading}></img>
         :
-        [<Header monthName={this.state.month.name} handleMonthChange={this.handleMonthChange}/>,
-        <Content month={this.state.month} />,
-        <Footer year={this.state.month.year}/>]}
+        [<Header key='header' monthName={this.state.month.name} handleMonthChange={this.handleMonthChange}/>,
+        <Content key='content' month={this.state.month} />,
+        <Footer key='footer' year={this.state.month.year}/>]}
       </div>
     );
   }
