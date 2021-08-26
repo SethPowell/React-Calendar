@@ -16,7 +16,7 @@ export default class CalendarBox extends Component {
 
     // componentDidMount() {
     //     if (!this.props.overflow) {
-    //         fetch(`http://127.0.0.1:5000/reminder/get/${this.props.month.id}/${this.props.date}`, {method: "GET"})
+    //         fetch(`https://calendar-api-swp.herokuapp.com/reminder/get/${this.props.month.id}/${this.props.date}`, {method: "GET"})
     //         .then(response => response.json())
     //         .then(data => {
     //             if (data.id) {
@@ -33,7 +33,7 @@ export default class CalendarBox extends Component {
     handleReminderChange() {
         if (!this.state.reminderExists && this.state.textInput !== "") {
             // post request id, month, date
-            fetch("http://127.0.0.1:5000/reminder/add", {
+            fetch("https://calendar-api-swp.herokuapp.com/reminder/add", {
                 method: "POST",
                 headers: {"content-type": "application/json"},
                 body: JSON.stringify({
@@ -55,7 +55,7 @@ export default class CalendarBox extends Component {
         }
         else if (this.state.reminderExists && this.state.textInput !== "") {
             //put request
-            fetch(`http://127.0.0.1:5000/reminder/update/${this.props.month.id}/${this.props.date}`, {
+            fetch(`https://calendar-api-swp.herokuapp.com/reminder/update/${this.props.month.id}/${this.props.date}`, {
                 method: "PUT",
                 headers: {"content-type": "application/json"},
                 body: JSON.stringify({text: this.state.textInput})
@@ -70,7 +70,7 @@ export default class CalendarBox extends Component {
         }
         else if (this.state.reminderExists && this.state.textInput === "") {
             // delete request
-            fetch(`http://127.0.0.1:5000/reminder/delete/${this.props.month.id}/${this.props.date}`, {method: "DELETE"})
+            fetch(`https://calendar-api-swp.herokuapp.com/reminder/delete/${this.props.month.id}/${this.props.date}`, {method: "DELETE"})
             .then(response => response.json())
             .then(data => {this.setState({ reminderExists: false })})
             .catch(error => console.log("Error deleting reminder: ", error))
